@@ -1,21 +1,35 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
-import Sidebar from "../Sidebar/Sidebar";
+import SideBar from "../Sidebar/sideBar";
+
+
+
+
+
 
 
 export default function MasterLayout() {
   return (
     <div>
-        <div className="container-fluid">
-            <div className="row">
+ 
+            {/* <div className="row">
                 <div className="col-md-3">
-                    <Sidebar/>
+                  <SideBar/>
                 </div>
                 <div className="col-md-9">
                     <Navbar/>
                     <Outlet/>
                 </div>
-            </div>
+            </div> */}
+            <div className="d-flex" >
+          <div className="nn"  >
+             <SideBar/>
+          </div>
+          <div className="w-100 ">
+             {/* <Navbar/> */}
+              <Outlet/>
+          </div>
+
         </div>
       
     </div>

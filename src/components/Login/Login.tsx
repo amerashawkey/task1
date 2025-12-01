@@ -1,8 +1,35 @@
+import { useForm } from 'react-hook-form';
 import style from './Login.module.css'
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify/unstyled";
 
 
 export default function Login() {
+  let navigate= useNavigate();
+  let{register,
+    handleSubmit,
+    formState:{errors}
+  }= useForm();
+
+  const onSubmit =async (data:any)=>{
+    try{ 
+      let response = await axios.post('https://dummyjson.com/auth/login',data);
+       toast.success('Wow so easy !');
+      navigate('/home/users-list')
+      console.log(response)
+
+    }catch(error){
+      toast.error("bazz")
+
+    }
+
+  }
+
+
+
+
+
   return (
     <div className="vh-100 auth-container">
       <div className="container-fluid">
@@ -38,7 +65,7 @@ export default function Login() {
                 </p>
               </div>
 
-              <form>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3">
                   <label htmlFor="email" style={{ color: '#6C6C6C' }}>
                     Email
@@ -46,10 +73,14 @@ export default function Login() {
                   <input
                     type="text"
                     className={`${style.inputt} input form-control my-2`}
+                    {...register("username",{
+                      required:'username is requird'
+                    })}
                     placeholder="Enter your email"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                   />
+                  {errors.username&&<p className='alert alert-danger'>{errors?.username.message}</p>}
 
                   <label htmlFor="password" style={{ color: '#6C6C6C' }}>
                     Password
@@ -57,16 +88,25 @@ export default function Login() {
                   <input
                     type="text"
                     className={`${style.inputt} input form-control my-2`}
+                    {...register("password",{
+                      required:'password is requird',
+                      // pattern:{
+                      //   value:/^[A-Z][a-z]{7,}$/,
+                      //   message:'password should be at lest 8 charcter'
+                      // }
+                    })}
                     placeholder="Enter your password"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                   />
                 </div>
+                {errors.password&&<p className='alert alert-danger'>{errors?.password.message}</p>}
 
                 <div className="d-grid py-4">
                   <button
+               
                     className={`${style.fontt} btn btn-warning text-white`}
-                    type="button"
+                    type="submit"
                     style={{ width: '422px', height: '44px' , fontSize:'15px',fontWeight:'400'}}
                   >
                     SIGN IN
