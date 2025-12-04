@@ -26,7 +26,7 @@ export default function MasterLayout() {
              <SideBar/>
           </div>
           <div className="w-100 ">
-             {/* <Navbar/> */}
+             <Navbar/>
               <Outlet/>
           </div>
 

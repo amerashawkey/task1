@@ -2,4 +2,29 @@
   margin: 0 !important;
   padding: 0 !important;
  width: auto;
+
+ background-color: #F2EAE1 !important;
+ height: 100vh;
+}
+.sidebarcontainer  .css-dip3t8{
+ background-color: #F2EAE1 !important;
+}
+
+h2::before{
+    content: '';  
+    width:6px;
+    height: 35px;
+    background-color:#F8D442;
+    
+    position: absolute;
+    top:15px;
+    left: 15px;
+
+  
+    transform: translate(5px,5px);  
+}
+h2{
+  padding-left: 35px;
+  
+  
 }

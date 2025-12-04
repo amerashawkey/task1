@@ -3,10 +3,14 @@ import style from './Login.module.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify/unstyled";
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 
 export default function Login() {
+  let{saveLoginData} = useContext(AuthContext);
   let navigate= useNavigate();
+  
   let{register,
     handleSubmit,
     formState:{errors}
@@ -15,6 +19,8 @@ export default function Login() {
   const onSubmit =async (data:any)=>{
     try{ 
       let response = await axios.post('https://dummyjson.com/auth/login',data);
+      localStorage.setItem('token',response.data.accessToken);
+        saveLoginData();
        toast.success('Wow so easy !');
       navigate('/home/users-list')
       console.log(response)
@@ -53,7 +59,7 @@ export default function Login() {
                 User Management System
               </h1>
 
-              <div className="text-center my-5">
+              <div className="text-center ">
                 <h3
                
                   className={style.fontt}
@@ -67,7 +73,7 @@ export default function Login() {
 
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3">
-                  <label htmlFor="email" style={{ color: '#6C6C6C' }}>
+                  <label htmlFor="email"  style={{ color: '#6C6C6C' }}>
                     Email
                   </label>
                   <input
@@ -90,19 +96,16 @@ export default function Login() {
                     className={`${style.inputt} input form-control my-2`}
                     {...register("password",{
                       required:'password is requird',
-                      // pattern:{
-                      //   value:/^[A-Z][a-z]{7,}$/,
-                      //   message:'password should be at lest 8 charcter'
-                      // }
                     })}
                     placeholder="Enter your password"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                   />
+                               {errors.password&&<p className='alert alert-danger'>{errors?.password.message}</p>}
                 </div>
-                {errors.password&&<p className='alert alert-danger'>{errors?.password.message}</p>}
+   
 
-                <div className="d-grid py-4">
+                <div className="d-grid mb-3">
                   <button
                
                     className={`${style.fontt} btn btn-warning text-white`}

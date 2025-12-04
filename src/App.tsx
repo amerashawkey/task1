@@ -29,6 +29,7 @@ function App() {
       children:[{index:true,element:<UsersList/>},
         {path:'users-list',element:<UsersList/>},
         {path:'users-data',element:<UserData/>},
+        { path: "users-data/:id", element: <UserData /> },
         {path:'users-profile',element:<UserProfile/>}
       ]
 

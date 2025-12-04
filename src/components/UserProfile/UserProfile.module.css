@@ -1,0 +1,56 @@
+.data{
+    background-color:#E5E5E5;
+    height: 100vh;
+  
+    padding: 0;
+}
+.userdata{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+      
+    height: 550px;
+    margin: 60px 100px;
+    border-radius: 20px;
+    width: 1008px;
+    background-color: white;
+}
+
+
+
+form {
+   padding-block: 60px;
+    margin: auto;
+  display: flex;
+  flex-direction: column; 
+  width: 90%;
+  height: 80%;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputt{
+    background-color:#e5e5e595;
+    width:  415px;
+    height: 44px;
+}
+.fontt{
+      font-family: 'Montserrat';
+      font-weight: 600;
+      font-Size: '22px';
+                 
+                   
+}
+
+
+.formitem{
+ display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.bton {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}

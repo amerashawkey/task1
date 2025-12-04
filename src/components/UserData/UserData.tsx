@@ -1,29 +1,42 @@
-import { useForm } from "react-hook-form";
+import { useForm  } from "react-hook-form";
 import style from "./UserData.module.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify/unstyled";
+import { useEffect } from "react";
 
 export default function UserData() {
   let navigate = useNavigate();
+  let {id} = useParams();
   let {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
   const onSubmit = async (data: any) => {
     try {
      let response = await axios.post("https://dummyjson.com/users/add", data); 
         toast.success('Wow so easy !');
-      navigate("/home/users-profile");
+      navigate("/home/users-profile", { state: data });
      
     } catch (error) {
       toast.error("sorry login again ");
     }
   };
+    useEffect(() => {
+    if (id) {
+      axios.get(`https://dummyjson.com/users/${id}`)
+        .then((res) => {
+          reset(res.data); 
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [id]);
   return (
     <div className={style.data}>
-      <h1>Add User</h1>
+      <h1>{id ? "UpDate User" : "Add User"}</h1>
+   
       <hr />
 
       <div className={style.userdata}>
@@ -183,6 +196,8 @@ export default function UserData() {
                 fontSize: "15px",
                 fontWeight: "400",
               }}
+              onClick={()=>navigate(`/home/users-profile/${user.id}`)}
+        
             >
               Save
             </button>
